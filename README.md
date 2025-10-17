@@ -68,3 +68,32 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Troubleshooting
+
+### ESLint plugin "react" conflict
+
+If you see an error like:
+
+Plugin "react" was conflicted between "package.json » eslint-config-react-app » ..." and "BaseConfig » ..."
+
+Possible permanent fixes:
+
+- Ensure path casing is consistent: Windows is case-insensitive but some tools can still behave inconsistently if you open the project from different paths (e.g. `C:\Users\melody\Desktop\careers-page` vs `c:\Users\melody\desktop\careers-page`). Close editors and re-open the project from a single path.
+- Remove duplicate installations of `eslint-plugin-react` or other ESLint plugins. Check `npm ls eslint-plugin-react` and remove duplicates by aligning versions and reinstalling.
+- Remove `node_modules` and `package-lock.json`, then reinstall: `npm ci` or `rm -rf node_modules package-lock.json && npm install`.
+- As a temporary development workaround, create a `.env` file at the project root with:
+
+```
+SKIP_PREFLIGHT_CHECK=true
+```
+
+This disables CRA's preflight checks (not recommended for production). See project root `.env` for the temporary setting used here.
+
+### Tailwind CSS notes
+
+This project includes Tailwind setup files (`tailwind.config.cjs` and `postcss.config.cjs`). To use Tailwind classes:
+
+- Ensure `src/index.css` contains the Tailwind directives (`@tailwind base; @tailwind components; @tailwind utilities;`).
+- If the `tailwind` or `tailwindcss` CLI is not found when running `npx tailwindcss`, try reinstalling dependencies: `rm -rf node_modules package-lock.json && npm install`.
+
